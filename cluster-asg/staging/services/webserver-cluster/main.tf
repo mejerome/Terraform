@@ -3,10 +3,14 @@ provider "aws" {
   region  = "us-east-2"
 }
 
-# Variable for port to allow on resources
-variable "allow_port" {
-  description = "Allow this port"
-  default     = 8080
+terraform {
+  backend "s3" {
+    bucket         = "mejerome-terraform-up-and-running-state"
+    key            = "webserver-cluster/terraform.tfstate"
+    region         = "us-east-2"
+    dynamodb_table = "mejerome-terraform-up-and-running-locks"
+    encrypt        = true
+  }
 }
 
 # get default VPC id
@@ -19,7 +23,7 @@ data "aws_subnet_ids" "default" {
   vpc_id = data.aws_vpc.default.id
 }
 
-# Security group resource
+# Security group resource for webservers
 resource "aws_security_group" "cat-sg" {
   name = "cat security group"
   ingress {
@@ -37,8 +41,10 @@ resource "aws_launch_configuration" "cat" {
   security_groups = [aws_security_group.cat-sg.id]
   user_data       = <<-EOF
         #!/bin/bash
-        echo "Fa now s3 wagyimi na suro mbaa" > index.html
-        nohup busybox http -f -p ${var.allow_port} &
+        echo "Fa now s3 wagyimi na suro mbaa" > /var/www/test/index.html
+        sudo apt update
+        sudo apt install apache2
+        sudo systemctl restart apache2
         EOF
   lifecycle {
     create_before_destroy = true
@@ -61,29 +67,7 @@ resource "aws_autoscaling_group" "cat" {
   }
 }
 
-resource "aws_lb" "cat" {
-  name               = "cat-asg-example"
-  load_balancer_type = "application"
-  subnets            = data.aws_subnet_ids.default.ids
-  security_groups    = [aws_security_group.alb.id]
-}
-
-resource "aws_lb_listener" "http" {
-  load_balancer_arn = aws_lb.cat.arn
-  port              = 80
-  protocol          = "HTTP"
-
-  default_action {
-    type = "fixed-response"
-
-    fixed_response {
-      content_type = "text/plain"
-      message_body = "404: page not found"
-      status_code  = 404
-    }
-  }
-}
-
+# Security group for load balancer
 resource "aws_security_group" "alb" {
   name = "cat-asg-example"
   ingress {
@@ -101,7 +85,32 @@ resource "aws_security_group" "alb" {
   }
 }
 
-#target group for ASG
+# Elastic load balancer
+resource "aws_lb" "cat" {
+  name               = "cat-asg-example"
+  load_balancer_type = "application"
+  subnets            = data.aws_subnet_ids.default.ids
+  security_groups    = [aws_security_group.alb.id]
+}
+
+# Load balancer listener
+resource "aws_lb_listener" "http" {
+  load_balancer_arn = aws_lb.cat.arn
+  port              = 80
+  protocol          = "HTTP"
+
+  default_action {
+    type = "fixed-response"
+
+    fixed_response {
+      content_type = "text/plain"
+      message_body = "404: page not found"
+      status_code  = 404
+    }
+  }
+}
+
+# Target group for ASG
 resource "aws_lb_target_group" "asg" {
   name     = "cat-asg-example"
   port     = var.allow_port
@@ -119,6 +128,7 @@ resource "aws_lb_target_group" "asg" {
   }
 }
 
+# Load balancer listener rule
 resource "aws_alb_listener_rule" "asg" {
   listener_arn = aws_lb_listener.http.arn
   priority     = 100
@@ -130,9 +140,4 @@ resource "aws_alb_listener_rule" "asg" {
     type             = "forward"
     target_group_arn = aws_lb_target_group.asg.arn
   }
-}
-
-output "alb_dns_name" {
-  value       = aws_lb.cat.dns_name
-  description = "Domain name of LB"
 }
