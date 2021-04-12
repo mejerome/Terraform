@@ -4,13 +4,14 @@ This repository contains terraform and ansible examples for deploying a LAMP clu
 
 Steps:
 
-1. Create VPC ghana_office
-2. Create 2 subnets private and public
-3. Internet gateway
-4. Create route tables
-5. Route table association
-   Create launch template
-6. Security groups
-7. Load balancer
-8. Target group
-9. EC instances
+- Create VPC ghana_office
+- Create 2 subnets private and public
+- Internet gateway
+- Create route tables
+- Route table association
+- Security groups
+
+- Create launch template
+- Load balancer
+- Target group
+- Autoscaling group
