@@ -1,0 +1,28 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: no
+
+  tasks:
+    - name: Update all packages
+      apt:
+        upgrade: dist
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install apache2
+      apt: name=apache2 update_cache=yes state=latest
+
+    - name: Copy test page into /var/www/html
+      template:
+        src: template/index.html.j2
+        dest: /var/www/html/index.html
+
+    - name: Enable mod_rewrite
+      apache2_module: name=rewrite state=present
+      notify:
+        - Restart apache2
+
+  handlers:
+    - name: Restart apache2
+      service: name=apache2 state=restarted
