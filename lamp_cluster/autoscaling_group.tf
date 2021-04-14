@@ -1,87 +1,81 @@
 
-# resource "aws_launch_configuration" "web" {
-#   name_prefix   = "web-"
-#   image_id      = "ami-096cb92bb3580c759" # eu-west-2
-#   instance_type = "t3.micro"
-#   key_name      = "jt-london"
+resource "aws_launch_configuration" "web" {
+  name_prefix   = "web-"
+  image_id      = "ami-096cb92bb3580c759" # eu-west-2
+  instance_type = "t3.micro"
+  key_name      = "jt-london"
 
-#   # user_data       = file("install_apache.sh")
-#   security_groups = [aws_security_group.allow_ports.id]
+  # user_data       = file("install_apache.sh")
+  security_groups = [aws_security_group.allow_ports.id]
 
-#   lifecycle {
-#     create_before_destroy = true
-#   }
+  lifecycle {
+    create_before_destroy = true
+  }
 
-#   provisioner "remote-exec" {
-#     inline = ["sudo apt update", "sudo apt install python3 -y", "echo Done!"]
+}
 
-#   provisioner "local-exec" {
-#     command = 
-#   }
+resource "aws_autoscaling_group" "web" {
+  name                 = "terraform-asg-lamp"
+  launch_configuration = aws_launch_configuration.web.name
+  min_size             = 1
+  desired_capacity     = 2
+  max_size             = 4
 
-#   tags {
-#     Name = "lamp-web"
-#   }
-# }
+  health_check_type = "ELB"
+  load_balancers    = [aws_elb.web.id]
 
-# resource "aws_autoscaling_group" "web" {
-#   name                 = "terraform-asg-lamp"
-#   launch_configuration = aws_launch_configuration.web.name
-#   min_size             = 1
-#   desired_capacity     = 2
-#   max_size             = 4
+  enabled_metrics = [
+    "GroupMinSize",
+    "GroupMaxSize",
+    "GroupDesiredCapacity",
+    "GroupInServiceInstances",
+    "GroupTotalInstances"
+  ]
 
-#   health_check_type = "ELB"
-#   load_balancers    = [aws_elb.web.id]
+  metrics_granularity = "1Minute"
 
-#   enabled_metrics = [
-#     "GroupMinSize",
-#     "GroupMaxSize",
-#     "GroupDesiredCapacity",
-#     "GroupInServiceInstances",
-#     "GroupTotalInstances"
-#   ]
+  vpc_zone_identifier = [aws_subnet.public_sub.id]
 
-#   metrics_granularity = "1Minute"
+  lifecycle {
+    create_before_destroy = true
+  }
 
-#   vpc_zone_identifier = [aws_subnet.public_sub.id]
+  provisioner "local-exec" {
+    command = "sleep 120; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu -i '${self.public_dns},' --private-key '${var.private_key}' apache-install.yml"
+  }
 
-#   lifecycle {
-#     create_before_destroy = true
-#   }
+  tags = [{
+    Name = "web-group"
+  }]
 
-#   tags = [{
-#     Name = "web-group"
-#   }]
+}
 
-# }
+resource "aws_elb" "web" {
+  name = "lamp-terraform-elb"
 
-# resource "aws_elb" "web" {
-#   name = "lamp-terraform-elb"
+  listener {
+    instance_port     = 80
+    instance_protocol = "http"
+    lb_port           = "80"
+    lb_protocol       = "http"
+  }
 
-#   listener {
-#     instance_port     = 80
-#     instance_protocol = "http"
-#     lb_port           = "80"
-#     lb_protocol       = "http"
-#   }
+  health_check {
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
+    timeout             = 3
+    target              = "HTTP:80/"
+    interval            = 30
+  }
 
-#   health_check {
-#     healthy_threshold   = 2
-#     unhealthy_threshold = 2
-#     timeout             = 3
-#     target              = "HTTP:80/"
-#     interval            = 30
-#   }
+  subnets                     = [aws_subnet.public_sub.id]
+  cross_zone_load_balancing   = true
+  idle_timeout                = 400
+  connection_draining         = true
+  connection_draining_timeout = 400
+  security_groups             = [aws_security_group.allow_ports.id]
 
-#   subnets                     = [aws_subnet.public_sub.id]
-#   cross_zone_load_balancing   = true
-#   idle_timeout                = 400
-#   connection_draining         = true
-#   connection_draining_timeout = 400
-#   security_groups             = [aws_security_group.allow_ports.id]
-
-#   tags = {
-#     Name = "lamp-terraform-elb"
-#   }
-# }
+  tags = {
+    Name = "lamp-terraform-elb"
+  }
+}

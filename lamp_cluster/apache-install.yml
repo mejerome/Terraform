@@ -1,7 +1,7 @@
 ---
 - hosts: all
   become: yes
-  gather_facts: no
+  # gather_facts: no
 
   tasks:
     - name: Update all packages
@@ -15,7 +15,7 @@
 
     - name: Copy test page into /var/www/html
       template:
-        src: template/index.html.j2
+        src: templates/index.html.j2
         dest: /var/www/html/index.html
 
     - name: Enable mod_rewrite
