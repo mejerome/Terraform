@@ -1,0 +1,287 @@
+1618486296,,ui,say,==> amazon-ebs: Force Deregister flag found%!(PACKER_COMMA) skipping prevalidating AMI Name
+1618486296,,ui,message,    amazon-ebs: Found Image ID: ami-06178cf087598769c
+1618486296,,ui,say,==> amazon-ebs: Creating temporary keypair: packer_60782417-08dd-9acd-559f-67d90499a4de
+1618486296,,ui,say,==> amazon-ebs: Creating temporary security group for this instance: packer_60782418-483e-be0f-7d5f-e51782a1752d
+1618486296,,ui,say,==> amazon-ebs: Authorizing access to port 22 from [0.0.0.0/0] in the temporary security groups...
+1618486297,,ui,say,==> amazon-ebs: Launching a source AWS instance...
+1618486297,,ui,say,==> amazon-ebs: Adding tags to source instance
+1618486297,,ui,message,    amazon-ebs: Adding tag: "Name": "Packer Builder"
+1618486298,,ui,message,    amazon-ebs: Instance ID: i-0c3d5ef746b6bf1f5
+1618486298,,ui,say,==> amazon-ebs: Waiting for instance (i-0c3d5ef746b6bf1f5) to become ready...
+1618486328,,ui,say,==> amazon-ebs: Using ssh communicator to connect: 3.8.174.221
+1618486328,,ui,say,==> amazon-ebs: Waiting for SSH to become available...
+1618486388,,ui,say,==> amazon-ebs: Connected to SSH!
+1618486388,,ui,say,==> amazon-ebs: Provisioning with Ansible...
+1618486388,,ui,message,    amazon-ebs: Setting up proxy adapter for Ansible....
+1618486388,,ui,say,==> amazon-ebs: Executing Ansible: ansible-playbook -e packer_build_name="amazon-ebs" -e packer_builder_type=amazon-ebs --ssh-extra-args '-o IdentitiesOnly=yes' -e ansible_ssh_private_key_file=/tmp/ansible-key400628835 -i /tmp/packer-provisioner-ansible462769766 /home/jerome/Documents/github/Terraform/lamp_cluster/packer/ansible/common.yml
+1618486389,,ui,message,    amazon-ebs:
+1618486389,,ui,message,    amazon-ebs: PLAY [all] *********************************************************************
+1618486389,,ui,message,    amazon-ebs:
+1618486389,,ui,message,    amazon-ebs: TASK [Gathering Facts] *********************************************************
+1618486393,,ui,message,    amazon-ebs: ok: [default]
+1618486393,,ui,message,    amazon-ebs:
+1618486393,,ui,message,    amazon-ebs: TASK [create group user lamp-web] **********************************************
+1618486397,,ui,message,    amazon-ebs: changed: [default]
+1618486397,,ui,message,    amazon-ebs:
+1618486397,,ui,message,    amazon-ebs: PLAY RECAP *********************************************************************
+1618486397,,ui,message,    amazon-ebs: default                    : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+1618486397,,ui,message,    amazon-ebs:
+1618486397,,ui,say,==> amazon-ebs: Provisioning with Ansible...
+1618486397,,ui,message,    amazon-ebs: Setting up proxy adapter for Ansible....
+1618486398,,ui,say,==> amazon-ebs: Executing Ansible: ansible-playbook -e packer_build_name="amazon-ebs" -e packer_builder_type=amazon-ebs --ssh-extra-args '-o IdentitiesOnly=yes' -e ansible_ssh_private_key_file=/tmp/ansible-key234859996 -i /tmp/packer-provisioner-ansible964997515 /home/jerome/Documents/github/Terraform/lamp_cluster/packer/ansible/lamp-web.yml
+1618486398,,ui,message,    amazon-ebs:
+1618486398,,ui,message,    amazon-ebs: PLAY [all] *********************************************************************
+1618486398,,ui,message,    amazon-ebs:
+1618486398,,ui,message,    amazon-ebs: TASK [Gathering Facts] *********************************************************
+1618486402,,ui,message,    amazon-ebs: ok: [default]
+1618486402,,ui,message,    amazon-ebs:
+1618486402,,ui,message,    amazon-ebs: TASK [geerlingguy.firewall : Ensure iptables is present.] **********************
+1618486426,,ui,message,    amazon-ebs: changed: [default]
+1618486426,,ui,message,    amazon-ebs:
+1618486426,,ui,message,    amazon-ebs: TASK [geerlingguy.firewall : Flush iptables the first time playbook runs.] *****
+1618486427,,ui,message,    amazon-ebs: changed: [default]
+1618486427,,ui,message,    amazon-ebs:
+1618486427,,ui,message,    amazon-ebs: TASK [geerlingguy.firewall : Copy firewall script into place.] *****************
+1618486428,,ui,message,    amazon-ebs: changed: [default]
+1618486428,,ui,message,    amazon-ebs:
+1618486428,,ui,message,    amazon-ebs: TASK [geerlingguy.firewall : Copy firewall init script into place.] ************
+1618486428,,ui,message,    amazon-ebs: skipping: [default]
+1618486428,,ui,message,    amazon-ebs:
+1618486428,,ui,message,    amazon-ebs: TASK [geerlingguy.firewall : Copy firewall systemd unit file into place (for systemd systems).] ***
+1618486429,,ui,message,    amazon-ebs: changed: [default]
+1618486429,,ui,message,    amazon-ebs:
+1618486429,,ui,message,    amazon-ebs: TASK [geerlingguy.firewall : Configure the firewall service.] ******************
+1618486430,,ui,message,    amazon-ebs: changed: [default]
+1618486430,,ui,message,    amazon-ebs:
+1618486430,,ui,message,    amazon-ebs: TASK [geerlingguy.firewall : Check if firewalld package is installed (on RHEL).] ***
+1618486430,,ui,message,    amazon-ebs: skipping: [default]
+1618486430,,ui,message,    amazon-ebs:
+1618486430,,ui,message,    amazon-ebs: TASK [geerlingguy.firewall : Disable the firewalld service (on RHEL%!(PACKER_COMMA) if configured).] ***
+1618486430,,ui,message,    amazon-ebs: skipping: [default]
+1618486430,,ui,message,    amazon-ebs:
+1618486430,,ui,message,    amazon-ebs: TASK [geerlingguy.firewall : Check if ufw package is installed (on Ubuntu).] ***
+1618486430,,ui,message,    amazon-ebs: skipping: [default]
+1618486430,,ui,message,    amazon-ebs:
+1618486430,,ui,message,    amazon-ebs: TASK [geerlingguy.firewall : Disable the ufw firewall (on Ubuntu%!(PACKER_COMMA) if configured).] ***
+1618486430,,ui,message,    amazon-ebs: skipping: [default]
+1618486430,,ui,message,    amazon-ebs:
+1618486430,,ui,message,    amazon-ebs: TASK [geerlingguy.firewall : Check if ufw package is installed (on Archlinux).] ***
+1618486430,,ui,message,    amazon-ebs: skipping: [default]
+1618486430,,ui,message,    amazon-ebs:
+1618486430,,ui,message,    amazon-ebs: TASK [geerlingguy.firewall : Disable the ufw firewall (on Archlinux%!(PACKER_COMMA) if configured).] ***
+1618486430,,ui,message,    amazon-ebs: skipping: [default]
+1618486430,,ui,message,    amazon-ebs:
+1618486430,,ui,message,    amazon-ebs: TASK [geerlingguy.apache : Include OS-specific variables.] *********************
+1618486430,,ui,message,    amazon-ebs: ok: [default]
+1618486430,,ui,message,    amazon-ebs:
+1618486430,,ui,message,    amazon-ebs: TASK [geerlingguy.apache : Include variables for Amazon Linux.] ****************
+1618486430,,ui,message,    amazon-ebs: skipping: [default]
+1618486430,,ui,message,    amazon-ebs:
+1618486430,,ui,message,    amazon-ebs: TASK [geerlingguy.apache : Define apache_packages.] ****************************
+1618486430,,ui,message,    amazon-ebs: ok: [default]
+1618486430,,ui,message,    amazon-ebs:
+1618486430,,ui,message,    amazon-ebs: TASK [geerlingguy.apache : include_tasks] **************************************
+1618486430,,ui,message,    amazon-ebs: included: /home/jerome/.ansible/roles/geerlingguy.apache/tasks/setup-RedHat.yml for default
+1618486430,,ui,message,    amazon-ebs:
+1618486430,,ui,message,    amazon-ebs: TASK [geerlingguy.apache : Ensure Apache is installed on RHEL.] ****************
+1618486442,,ui,message,    amazon-ebs: changed: [default]
+1618486442,,ui,message,    amazon-ebs:
+1618486442,,ui,message,    amazon-ebs: TASK [geerlingguy.apache : Get installed version of Apache.] *******************
+1618486443,,ui,message,    amazon-ebs: ok: [default]
+1618486443,,ui,message,    amazon-ebs:
+1618486443,,ui,message,    amazon-ebs: TASK [geerlingguy.apache : Create apache_version variable.] ********************
+1618486443,,ui,message,    amazon-ebs: ok: [default]
+1618486443,,ui,message,    amazon-ebs:
+1618486443,,ui,message,    amazon-ebs: TASK [geerlingguy.apache : Include Apache 2.2 variables.] **********************
+1618486443,,ui,message,    amazon-ebs: skipping: [default]
+1618486443,,ui,message,    amazon-ebs:
+1618486443,,ui,message,    amazon-ebs: TASK [geerlingguy.apache : Include Apache 2.4 variables.] **********************
+1618486443,,ui,message,    amazon-ebs: ok: [default]
+1618486443,,ui,message,    amazon-ebs:
+1618486443,,ui,message,    amazon-ebs: TASK [geerlingguy.apache : Configure Apache.] **********************************
+1618486443,,ui,message,    amazon-ebs: included: /home/jerome/.ansible/roles/geerlingguy.apache/tasks/configure-RedHat.yml for default
+1618486443,,ui,message,    amazon-ebs:
+1618486443,,ui,message,    amazon-ebs: TASK [geerlingguy.apache : Configure Apache.] **********************************
+1618486444,,ui,message,    amazon-ebs: ok: [default] => (item={'regexp': '^Listen '%!(PACKER_COMMA) 'line': 'Listen 80'})
+1618486444,,ui,message,    amazon-ebs:
+1618486444,,ui,message,    amazon-ebs: TASK [geerlingguy.apache : Check whether certificates defined in vhosts exist.] ***
+1618486444,,ui,message,    amazon-ebs:
+1618486444,,ui,message,    amazon-ebs: TASK [geerlingguy.apache : Add apache vhosts configuration.] *******************
+1618486445,,ui,message,    amazon-ebs: changed: [default]
+1618486445,,ui,message,    amazon-ebs:
+1618486445,,ui,message,    amazon-ebs: TASK [geerlingguy.apache : Check if localhost cert exists (RHEL 8 and later).] ***
+1618486445,,ui,message,    amazon-ebs: ok: [default]
+1618486445,,ui,message,    amazon-ebs:
+1618486445,,ui,message,    amazon-ebs: TASK [geerlingguy.apache : Ensure httpd certs are installed (RHEL 8 and later).] ***
+1618486446,,ui,message,    amazon-ebs: changed: [default]
+1618486446,,ui,message,    amazon-ebs:
+1618486446,,ui,message,    amazon-ebs: TASK [geerlingguy.apache : Ensure Apache has selected state and enabled on boot.] ***
+1618486447,,ui,message,    amazon-ebs: changed: [default]
+1618486447,,ui,message,    amazon-ebs:
+1618486447,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Include distribution and version-specific vars.] *******
+1618486447,,ui,message,    amazon-ebs:
+1618486447,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Set the default PHP version for Debian-based OSes.] ****
+1618486447,,ui,message,    amazon-ebs: skipping: [default]
+1618486447,,ui,message,    amazon-ebs:
+1618486447,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Include OS-specific variables.] ************************
+1618486447,,ui,message,    amazon-ebs: ok: [default]
+1618486447,,ui,message,    amazon-ebs:
+1618486447,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Define php_packages.] **********************************
+1618486447,,ui,message,    amazon-ebs: ok: [default]
+1618486447,,ui,message,    amazon-ebs:
+1618486447,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Define php_webserver_daemon.] **************************
+1618486447,,ui,message,    amazon-ebs: ok: [default]
+1618486447,,ui,message,    amazon-ebs:
+1618486447,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Define php_conf_paths.] ********************************
+1618486447,,ui,message,    amazon-ebs: ok: [default]
+1618486447,,ui,message,    amazon-ebs:
+1618486447,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Define php_extension_conf_paths.] **********************
+1618486447,,ui,message,    amazon-ebs: ok: [default]
+1618486447,,ui,message,    amazon-ebs:
+1618486447,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Define php_apc_conf_filename.] *************************
+1618486447,,ui,message,    amazon-ebs: ok: [default]
+1618486447,,ui,message,    amazon-ebs:
+1618486447,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Define php_opcache_conf_filename (Ubuntu 16.04).] ******
+1618486447,,ui,message,    amazon-ebs: skipping: [default]
+1618486447,,ui,message,    amazon-ebs:
+1618486447,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Define php_opcache_conf_filename.] *********************
+1618486447,,ui,message,    amazon-ebs: ok: [default]
+1618486447,,ui,message,    amazon-ebs:
+1618486447,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Define php_fpm_conf_path.] *****************************
+1618486447,,ui,message,    amazon-ebs: ok: [default]
+1618486447,,ui,message,    amazon-ebs:
+1618486447,,ui,message,    amazon-ebs: TASK [geerlingguy.php : include_tasks] *****************************************
+1618486447,,ui,message,    amazon-ebs: included: /home/jerome/.ansible/roles/geerlingguy.php/tasks/setup-RedHat.yml for default
+1618486447,,ui,message,    amazon-ebs:
+1618486447,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Ensure PHP packages are installed.] ********************
+1618486473,,ui,message,    amazon-ebs: changed: [default]
+1618486473,,ui,message,    amazon-ebs:
+1618486473,,ui,message,    amazon-ebs: TASK [geerlingguy.php : include_tasks] *****************************************
+1618486473,,ui,message,    amazon-ebs: skipping: [default]
+1618486473,,ui,message,    amazon-ebs:
+1618486473,,ui,message,    amazon-ebs: TASK [geerlingguy.php : include_tasks] *****************************************
+1618486473,,ui,message,    amazon-ebs: skipping: [default]
+1618486473,,ui,message,    amazon-ebs:
+1618486473,,ui,message,    amazon-ebs: TASK [geerlingguy.php : include_tasks] *****************************************
+1618486473,,ui,message,    amazon-ebs: included: /home/jerome/.ansible/roles/geerlingguy.php/tasks/configure.yml for default
+1618486473,,ui,message,    amazon-ebs:
+1618486473,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Ensure configuration directories exist.] ***************
+1618486474,,ui,message,    amazon-ebs: ok: [default] => (item=/etc)
+1618486474,,ui,message,    amazon-ebs: ok: [default] => (item=/etc/php.d)
+1618486474,,ui,message,    amazon-ebs:
+1618486474,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Place PHP configuration file in place.] ****************
+1618486475,,ui,message,    amazon-ebs: changed: [default] => (item=/etc)
+1618486475,,ui,message,    amazon-ebs:
+1618486475,,ui,message,    amazon-ebs: TASK [geerlingguy.php : include_tasks] *****************************************
+1618486475,,ui,message,    amazon-ebs: included: /home/jerome/.ansible/roles/geerlingguy.php/tasks/configure-apcu.yml for default
+1618486475,,ui,message,    amazon-ebs:
+1618486475,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Check for existing APCu config files.] *****************
+1618486476,,ui,message,    amazon-ebs: ok: [default] => (item=/etc/php.d)
+1618486476,,ui,message,    amazon-ebs:
+1618486476,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Remove any non-role-supplied APCu config files.] *******
+1618486476,,ui,message,    amazon-ebs: changed: [default] => (item=[{'changed': False%!(PACKER_COMMA) 'msg': ''%!(PACKER_COMMA) 'matched': 1%!(PACKER_COMMA) 'examined': 34%!(PACKER_COMMA) 'invocation': {'module_args': {'paths': ['/etc/php.d']%!(PACKER_COMMA) 'contains': 'extension(\\s+)?=(\\s+)?apc[u]?\\.so'%!(PACKER_COMMA) 'patterns': ['*']%!(PACKER_COMMA) 'file_type': 'file'%!(PACKER_COMMA) 'age_stamp': 'mtime'%!(PACKER_COMMA) 'recurse': False%!(PACKER_COMMA) 'hidden': False%!(PACKER_COMMA) 'follow': False%!(PACKER_COMMA) 'get_checksum': False%!(PACKER_COMMA) 'use_regex': False%!(PACKER_COMMA) 'excludes': None%!(PACKER_COMMA) 'age': None%!(PACKER_COMMA) 'size': None%!(PACKER_COMMA) 'depth': None}}%!(PACKER_COMMA) 'failed': False%!(PACKER_COMMA) 'item': '/etc/php.d'%!(PACKER_COMMA) 'ansible_loop_var': 'item'}%!(PACKER_COMMA) {'path': '/etc/php.d/40-apcu.ini'%!(PACKER_COMMA) 'mode': '0644'%!(PACKER_COMMA) 'isdir': False%!(PACKER_COMMA) 'ischr': False%!(PACKER_COMMA) 'isblk': False%!(PACKER_COMMA) 'isreg': True%!(PACKER_COMMA) 'isfifo': False%!(PACKER_COMMA) 'islnk': False%!(PACKER_COMMA) 'issock': False%!(PACKER_COMMA) 'uid': 0%!(PACKER_COMMA) 'gid': 0%!(PACKER_COMMA) 'size': 2264%!(PACKER_COMMA) 'inode': 16796032%!(PACKER_COMMA) 'dev': 51714%!(PACKER_COMMA) 'nlink': 1%!(PACKER_COMMA) 'atime': 1618486472.408083%!(PACKER_COMMA) 'mtime': 1557924391.0%!(PACKER_COMMA) 'ctime': 1618486471.6440804%!(PACKER_COMMA) 'gr_name': 'root'%!(PACKER_COMMA) 'pw_name': 'root'%!(PACKER_COMMA) 'wusr': True%!(PACKER_COMMA) 'rusr': True%!(PACKER_COMMA) 'xusr': False%!(PACKER_COMMA) 'wgrp': False%!(PACKER_COMMA) 'rgrp': True%!(PACKER_COMMA) 'xgrp': False%!(PACKER_COMMA) 'woth': False%!(PACKER_COMMA) 'roth': True%!(PACKER_COMMA) 'xoth': False%!(PACKER_COMMA) 'isuid': False%!(PACKER_COMMA) 'isgid': False}])
+1618486476,,ui,message,    amazon-ebs:
+1618486476,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Ensure APCu config file is present.] *******************
+1618486477,,ui,message,    amazon-ebs: changed: [default] => (item=/etc/php.d)
+1618486477,,ui,message,    amazon-ebs:
+1618486477,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Remove APCu config file if APC is disabled.] ***********
+1618486477,,ui,message,    amazon-ebs: skipping: [default] => (item=/etc/php.d)
+1618486477,,ui,message,    amazon-ebs:
+1618486477,,ui,message,    amazon-ebs: TASK [geerlingguy.php : include_tasks] *****************************************
+1618486477,,ui,message,    amazon-ebs: included: /home/jerome/.ansible/roles/geerlingguy.php/tasks/configure-opcache.yml for default
+1618486477,,ui,message,    amazon-ebs:
+1618486477,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Check for existing OpCache config files.] **************
+1618486478,,ui,message,    amazon-ebs: ok: [default] => (item=/etc/php.d)
+1618486478,,ui,message,    amazon-ebs:
+1618486478,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Remove any non-role-supplied OpCache config files.] ****
+1618486478,,ui,message,    amazon-ebs:
+1618486478,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Ensure OpCache config file is present.] ****************
+1618486479,,ui,message,    amazon-ebs: changed: [default] => (item=/etc/php.d)
+1618486479,,ui,message,    amazon-ebs:
+1618486479,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Remove OpCache config file if OpCache is disabled.] ****
+1618486479,,ui,message,    amazon-ebs: skipping: [default] => (item=/etc/php.d)
+1618486479,,ui,message,    amazon-ebs:
+1618486479,,ui,message,    amazon-ebs: TASK [geerlingguy.php : include_tasks] *****************************************
+1618486479,,ui,message,    amazon-ebs: included: /home/jerome/.ansible/roles/geerlingguy.php/tasks/configure-fpm.yml for default
+1618486479,,ui,message,    amazon-ebs:
+1618486479,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Define php_fpm_daemon.] ********************************
+1618486479,,ui,message,    amazon-ebs: ok: [default]
+1618486479,,ui,message,    amazon-ebs:
+1618486479,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Define php_fpm_pool_conf_path.] ************************
+1618486479,,ui,message,    amazon-ebs: ok: [default]
+1618486479,,ui,message,    amazon-ebs:
+1618486479,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Define php_fpm_pool_user.] *****************************
+1618486479,,ui,message,    amazon-ebs: ok: [default]
+1618486479,,ui,message,    amazon-ebs:
+1618486479,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Define php_fpm_pool_group.] ****************************
+1618486479,,ui,message,    amazon-ebs: ok: [default]
+1618486479,,ui,message,    amazon-ebs:
+1618486479,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Stat php_fpm_pool_conf_path] ***************************
+1618486480,,ui,message,    amazon-ebs: ok: [default]
+1618486480,,ui,message,    amazon-ebs:
+1618486480,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Ensure the default pool directory exists.] *************
+1618486480,,ui,message,    amazon-ebs: skipping: [default]
+1618486480,,ui,message,    amazon-ebs:
+1618486480,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Ensure the default pool exists.] ***********************
+1618486480,,ui,message,    amazon-ebs: skipping: [default]
+1618486480,,ui,message,    amazon-ebs:
+1618486480,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Configure php-fpm pool (if enabled).] ******************
+1618486480,,ui,message,    amazon-ebs: skipping: [default] => (item={'regexp': '^user.?=.+$'%!(PACKER_COMMA) 'line': 'user = apache'})
+1618486480,,ui,message,    amazon-ebs: skipping: [default] => (item={'regexp': '^group.?=.+$'%!(PACKER_COMMA) 'line': 'group = apache'})
+1618486480,,ui,message,    amazon-ebs: skipping: [default] => (item={'regexp': '^listen.?=.+$'%!(PACKER_COMMA) 'line': 'listen = 127.0.0.1:9000'})
+1618486480,,ui,message,    amazon-ebs: skipping: [default] => (item={'regexp': '^listen\\.allowed_clients.?=.+$'%!(PACKER_COMMA) 'line': 'listen.allowed_clients = 127.0.0.1'})
+1618486480,,ui,message,    amazon-ebs: skipping: [default] => (item={'regexp': '^pm\\.max_children.?=.+$'%!(PACKER_COMMA) 'line': 'pm.max_children = 50'})
+1618486480,,ui,message,    amazon-ebs: skipping: [default] => (item={'regexp': '^pm\\.start_servers.?=.+$'%!(PACKER_COMMA) 'line': 'pm.start_servers = 5'})
+1618486480,,ui,message,    amazon-ebs: skipping: [default] => (item={'regexp': '^pm\\.min_spare_servers.?=.+$'%!(PACKER_COMMA) 'line': 'pm.min_spare_servers = 5'})
+1618486480,,ui,message,    amazon-ebs: skipping: [default] => (item={'regexp': '^pm\\.max_spare_servers.?=.+$'%!(PACKER_COMMA) 'line': 'pm.max_spare_servers = 5'})
+1618486480,,ui,message,    amazon-ebs:
+1618486480,,ui,message,    amazon-ebs: TASK [geerlingguy.php : Ensure php-fpm is started and enabled at boot (if configured).] ***
+1618486480,,ui,message,    amazon-ebs: skipping: [default]
+1618486480,,ui,message,    amazon-ebs:
+1618486480,,ui,message,    amazon-ebs: TASK [Remove apache test page] *************************************************
+1618486480,,ui,message,    amazon-ebs: ok: [default]
+1618486480,,ui,message,    amazon-ebs:
+1618486480,,ui,message,    amazon-ebs: TASK [Copy my custom test page] ************************************************
+1618486481,,ui,message,    amazon-ebs: changed: [default]
+1618486481,,ui,message,    amazon-ebs:
+1618486481,,ui,message,    amazon-ebs: RUNNING HANDLER [geerlingguy.firewall : restart firewall] **********************
+1618486482,,ui,message,    amazon-ebs: changed: [default]
+1618486482,,ui,message,    amazon-ebs:
+1618486482,,ui,message,    amazon-ebs: RUNNING HANDLER [geerlingguy.apache : restart apache] **************************
+1618486484,,ui,message,    amazon-ebs: changed: [default]
+1618486484,,ui,message,    amazon-ebs:
+1618486484,,ui,message,    amazon-ebs: RUNNING HANDLER [geerlingguy.php : restart webserver] **************************
+1618486486,,ui,message,    amazon-ebs: changed: [default]
+1618486486,,ui,message,    amazon-ebs:
+1618486486,,ui,message,    amazon-ebs: RUNNING HANDLER [geerlingguy.php : restart php-fpm] ****************************
+1618486486,,ui,message,    amazon-ebs: skipping: [default]
+1618486486,,ui,message,    amazon-ebs:
+1618486486,,ui,message,    amazon-ebs: PLAY RECAP *********************************************************************
+1618486486,,ui,message,    amazon-ebs: default                    : ok=50   changed=18   unreachable=0    failed=0    skipped=23   rescued=0    ignored=0
+1618486486,,ui,message,    amazon-ebs:
+1618486486,,ui,say,==> amazon-ebs: Stopping the source instance...
+1618486486,,ui,message,    amazon-ebs: Stopping instance
+1618486486,,ui,say,==> amazon-ebs: Waiting for the instance to stop...
+1618486502,,ui,say,==> amazon-ebs: Creating AMI web-packer-ami from instance i-0c3d5ef746b6bf1f5
+1618486502,,ui,message,    amazon-ebs: AMI: ami-091402642fc2b2c43
+1618486502,,ui,say,==> amazon-ebs: Waiting for AMI to become ready...
+1618486684,,ui,say,==> amazon-ebs: Adding tags to AMI (ami-091402642fc2b2c43)...
+1618486684,,ui,say,==> amazon-ebs: Tagging snapshot: snap-051beb2f4464ddf65
+1618486684,,ui,say,==> amazon-ebs: Creating AMI tags
+1618486684,,ui,message,    amazon-ebs: Adding tag: "Name": "packer-ansible"
+1618486684,,ui,say,==> amazon-ebs: Creating snapshot tags
+1618486684,,ui,say,==> amazon-ebs: Terminating the source AWS instance...
+1618486700,,ui,say,==> amazon-ebs: Cleaning up any extra volumes...
+1618486700,,ui,say,==> amazon-ebs: No volumes to clean up%!(PACKER_COMMA) skipping
+1618486700,,ui,say,==> amazon-ebs: Deleting temporary security group...
+1618486700,,ui,say,==> amazon-ebs: Deleting temporary keypair...
+1618486700,,ui,say,Build 'amazon-ebs' finished after 6 minutes 44 seconds.
+1618486700,,ui,say,\n==> Wait completed after 6 minutes 44 seconds
+1618486700,,ui,say,\n==> Builds finished. The artifacts of successful builds are:
+1618486700,amazon-ebs,artifact-count,1
+1618486700,amazon-ebs,artifact,0,builder-id,mitchellh.amazonebs
+1618486700,amazon-ebs,artifact,0,id,eu-west-2:ami-091402642fc2b2c43
+1618486700,amazon-ebs,artifact,0,string,AMIs were created:\neu-west-2: ami-091402642fc2b2c43\n
+1618486700,amazon-ebs,artifact,0,files-count,0
+1618486700,amazon-ebs,artifact,0,end
+1618486700,,ui,say,--> amazon-ebs: AMIs were created:\neu-west-2: ami-091402642fc2b2c43\n

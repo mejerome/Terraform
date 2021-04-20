@@ -1,0 +1,38 @@
+{
+	"variables": {
+		"ami_name": "web-packer-ami",
+		"aws_region": "eu-west-2",
+		"base_ami": "ami-06178cf087598769c",
+		"ssh_username": "ec2-user",
+		"subnet_id": ""
+	},
+
+	"builders": [
+		{
+			"type": "amazon-ebs",
+			"region": "{{user `aws_region`}}",
+			"instance_type": "t2.micro",
+			"force_deregister": "true",
+			"ssh_username": "{{user `ssh_username`}}",
+			"communicator": "ssh",
+			"source_ami": "{{user `base_ami`}}",
+			"associate_public_ip_address": true,
+			"subnet_id": "{{user `subnet_id`}}",
+			"ami_name": "{{user `ami_name`}}",
+			"tags": {
+				"Name": "packer-ansible"
+			}
+		}
+	],
+
+	"provisioners": [
+		{
+			"type": "ansible",
+			"playbook_file": "./ansible/common.yml"
+		},
+		{
+			"type": "ansible",
+			"playbook_file": "./ansible/lamp-web.yml"
+		}
+	]
+}
