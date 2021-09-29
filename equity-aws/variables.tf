@@ -21,7 +21,7 @@ variable "network_interface_privateip" {
 variable "instance_ami" {
   type        = string
   description = "The AMI for instance"
-  default     = "ami-0f5761c546ea1265a"
+  default     = "ami-09e67e426f25ce0d7"
 }
 
 variable "instance_type" {
